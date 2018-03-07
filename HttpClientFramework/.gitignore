@@ -1,0 +1,5 @@
+#Ignoring Maven Class FIles and .Idea of Intellij
+
+**/target
+**/.idea
+*.iml
