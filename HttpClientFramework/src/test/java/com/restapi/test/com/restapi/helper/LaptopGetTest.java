@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Unit test for simple App.
  */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 public class LaptopGetTest {
     String url;
     RestApiResponse response = null;
@@ -80,17 +80,16 @@ public class LaptopGetTest {
 
     @Test
     public void testfindwithid() {
-        url = "http://localhost:8080/laptop-bag/webapi/api/find/148";
+        url = "http://localhost:8080/laptop-bag/webapi/api/find/241";
         System.out.println("URL of GEt laptop id"+url);
         map = new HashMap();
         map.put("Accept", "application/json");
-
         response = RestApiHelper.performgetrequest(url,map);
         Assert.assertTrue("Expected code not found", HttpStatus.SC_OK == response.getStatuscode() || HttpStatus.SC_NOT_FOUND == response.getStatuscode());
         System.out.println("Response:Laptop id Details" + response.getStatuscode());
         builder = new GsonBuilder();
         Gson gson = builder.serializeNulls().setPrettyPrinting().create();
-        gsonresponse = gson.fromJson(response.getResponsebody(), ResponseBody.class);
+        gsonresponse = gson.fromJson(response.getResponsebody(),ResponseBody.class);
         Assert.assertEquals("Latitude",gsonresponse.LaptopName);
 
     }
