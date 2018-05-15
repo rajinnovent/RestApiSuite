@@ -16,20 +16,24 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class PromptAuth {
 
-    public static void main(String[] args) {
-        CredentialsProvider provider=new BasicCredentialsProvider();
-        provider.setCredentials(AuthScope.ANY,new UsernamePasswordCredentials("rajesh","rajananth"));
-        HttpClientContext context=HttpClientContext.create();
-        context.setCredentialsProvider(provider);
-        HttpGet get=new HttpGet("http://localhost:8080/laptop-bag/webapi/prompt/all");
-        CloseableHttpResponse response = null;
-        try (CloseableHttpClient client = HttpClientBuilder.create().build()) {
-            response = client.execute(get,context);
-            ResponseHandler<String> handler = new BasicResponseHandler();
-            RestApiResponse restresponse= new RestApiResponse(response.getStatusLine().getStatusCode(), handler.handleResponse(response));
-            System.out.println(restresponse.toString());
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
-        }
-    }
+	public static void main(String[] args) {
+		/*
+		 * CredentialsProvider provider=new BasicCredentialsProvider();
+		 * provider.setCredentials(AuthScope.ANY,new
+		 * UsernamePasswordCredentials("rajsh","rajananth")); HttpClientContext
+		 * context=HttpClientContext.create(); context.setCredentialsProvider(provider);
+		 * HttpGet get=new
+		 * HttpGet("http://localhost:8080/laptop-bag/webapi/prompt/all");
+		 * CloseableHttpResponse response = null; try (CloseableHttpClient client =
+		 * HttpClientBuilder.create().build()) { response = client.execute(get,context);
+		 * ResponseHandler<String> handler = new BasicResponseHandler(); RestApiResponse
+		 * restresponse= new RestApiResponse(response.getStatusLine().getStatusCode(),
+		 * handler.handleResponse(response));
+		 * System.out.println(restresponse.toString()); } catch (Exception e) { throw
+		 * new RuntimeException(e.getMessage(), e); }
+		 * 
+		 */
+		RestApiResponse response = HttpsClientHelper.performgetrequest("http://localhost:8080/laptop-bag/webapi/sslres/all", null);
+	    System.out.println(response.toString());
+	}
 }
