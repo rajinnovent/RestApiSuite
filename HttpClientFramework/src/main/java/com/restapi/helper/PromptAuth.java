@@ -1,6 +1,11 @@
 package com.restapi.helper;
 
 import com.restapi.model.RestApiResponse;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
@@ -16,7 +21,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class PromptAuth {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
 		/*
 		 * CredentialsProvider provider=new BasicCredentialsProvider();
 		 * provider.setCredentials(AuthScope.ANY,new
@@ -33,7 +38,18 @@ public class PromptAuth {
 		 * new RuntimeException(e.getMessage(), e); }
 		 * 
 		 */
-		RestApiResponse response = HttpsClientHelper.performgetrequest("http://localhost:8080/laptop-bag/webapi/sslres/all", null);
-	    System.out.println(response.toString());
+		/*
+		 * RestApiResponse response = HttpsClientHelper.performgetrequest(
+		 * "http://localhost:8080/laptop-bag/webapi/sslres/all", null);
+		 * System.out.println(response.toString());
+		 */
+
+		Map<String, String> header = new LinkedHashMap<String, String>();
+		header.put("Accept", "application/xml");
+		RestApiResponse response;
+		response = HttpAsyncClientHelper.performGetRequestAsync("http://localhost:8080/laptop-bag/webapi/api/all",
+				header);
+		System.out.println(response.toString());
+
 	}
 }
